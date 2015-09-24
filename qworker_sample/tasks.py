@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 from __future__ import absolute_import
-import datetime, logging, logtool, raven, sys
+import logging, logtool, raven, sys
 from celery import current_app
 from celery.exceptions import Retry
 from django.conf import settings
@@ -32,7 +32,7 @@ def sentry_exception (e, request, message = None):
     logtool.log_fault (ee, message = "FAULT: Problem logging exception.")
 
 @logtool.log_call
-def retry_handler (task, e, typ, key, time_dt):
+def retry_handler (task, e):
   try:
     LOG.info ("Retrying.  Attempt: #%s", task.request.retries)
     raise task.retry (exc = e, max_retries = settings.FAIL_RETRYCOUNT,
@@ -47,7 +47,7 @@ def retry_handler (task, e, typ, key, time_dt):
 
 @current_app.task (bind = True)
 @logtool.log_call
-def test (self, num1, num2):
+def test (self, num1, num2): # pylint: disable=unused-argument
   rc = num1 + num2
-  LOG.info ("Called: %s + %s = %s" % (num1, num2, rc))
+  LOG.info ("Called: %s + %s = %s",num1, num2, rc)
   return rc

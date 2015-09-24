@@ -36,8 +36,8 @@ CELERY_QUEUES = [
 EXTERNAL_CONFIG = "/etc/qworkerd/qworker_sample.conf"
 execfile (EXTERNAL_CONFIG)
 
- DESIRED & REQUIRED are used for variables defined outside of the
-# Python package/code.  
+# DESIRED & REQUIRED are used for variables defined outside of the
+# Python package/code.
 DESIRED_VARIABLES = [
 #  "CELERYD_CONCURRENCY",
 ]
