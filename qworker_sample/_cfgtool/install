@@ -1,0 +1,5 @@
+#! /bin/sh
+
+install -D -g root -o root -m 0644 -p qworker_sample /etc/cfgtool/module.d/qworker_sample
+install -d -g root -o root -m 0755 -p /etc/qworkerd
+install -D -g root -o root -m 0644 -p -t /etc/qworkerd *.templ
