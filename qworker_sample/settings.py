@@ -71,7 +71,7 @@ if missing:
 
 @logtool.log_call
 def install ():
-  mod = importlib.import_module ("qworker_sample.settings")
+  mod = importlib.import_module ("qworkerd.settings")
   mod.INSTALLED_APPS += (
     "qworker_sample",
   )
