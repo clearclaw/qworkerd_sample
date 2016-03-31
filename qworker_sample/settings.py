@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import importlib, logging, logtool, sys
+import logging
 from kombu import Exchange, Queue
 
 LOG = logging.getLogger (__name__)
@@ -57,24 +57,4 @@ EXPORT_VARS = [
   "FAIL_WAITTIME",
 ]
 
-@logtool.log_call
-def check_vars (wanted, provided):
-  return [var for var in wanted if var not in provided]
-
-missing = check_vars (DESIRED_VARIABLES, vars ())
-if missing:
-  print >> sys.stderr, "Missing desired configurations: %s" % missing
-missing = check_vars (REQUIRED_VARIABLES, vars ())
-if missing:
-  print >> sys.stderr, "Missing required configurations: %s" % missing
-  sys.exit ()
-
-@logtool.log_call
-def install ():
-  mod = importlib.import_module ("qworkerd.settings")
-  mod.INSTALLED_APPS += (
-    "qworker_sample",
-  )
-  mod.CELERY_QUEUES.extend (CELERY_QUEUES)
-  for var in EXPORT_VARS:
-    setattr (mod, var, globals ()[var])
+EXTEND_VARS = ["CELERY_QUEUES",]
