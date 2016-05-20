@@ -3,7 +3,7 @@
 from __future__ import absolute_import
 import logging, logtool
 from celery import current_app
-from qworkerd.main import retry_handler
+from qworkerd import retry_handler
 from .qstask import QSTask
 
 LOG = logging.getLogger (__name__)
