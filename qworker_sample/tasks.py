@@ -4,11 +4,11 @@ from __future__ import absolute_import
 import logging, logtool
 from celery import current_app
 from qworkerd.main import retry_handler
-from qworkerd.qwtask import QWTask
+from .qstask import QSTask
 
 LOG = logging.getLogger (__name__)
 
-@current_app.task (bind = True, base = QWTask)
+@current_app.task (bind = True, base = QSTask)
 @logtool.log_call
 def test (self, num1, num2): # pylint: disable=unused-argument
   try:
@@ -18,3 +18,8 @@ def test (self, num1, num2): # pylint: disable=unused-argument
   except Exception as e:
     retry_handler (self, e)
     raise
+
+@current_app.task (bind = True, base = QSTask)
+@logtool.log_call
+def fail (self): # pylint: disable=unused-argument
+  raise Exception ("Oh dear")

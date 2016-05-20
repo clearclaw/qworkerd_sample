@@ -5,8 +5,6 @@ from kombu import Exchange, Queue
 
 LOG = logging.getLogger (__name__)
 
-CELERYD_STATS_PREFIX = "qworker_sample."
-
 # Task soft time limit in seconds.
 # The SoftTimeLimitExceeded exception will be raised when this is
 # exceeded. The task can catch this to e.g. clean up before the hard
@@ -22,7 +20,7 @@ CELERYD_TASK_TIME_LIMIT = 36
 FAIL_WAITTIME = 60
 
 # How many times to retry failed jobs
-FAIL_RETRYCOUNT = 5
+FAIL_RETRYCOUNT = 1
 
 # CELERY_QUEUES is a list of Queue instances. If you don't set the
 # exchange or exchange type values for a key, these will be taken from
@@ -35,26 +33,5 @@ CELERY_QUEUES = [
 
 EXTERNAL_CONFIG = "/etc/qworkerd/qworker_sample.conf"
 execfile (EXTERNAL_CONFIG)
-
-# DESIRED & REQUIRED are used for variables defined outside of the
-# Python package/code.
-DESIRED_VARIABLES = [
-#  "CELERYD_CONCURRENCY",
-]
-REQUIRED_VARIABLES = [
-  "EXAMPLE_VARIABLE1",
-  "EXAMPLE_VARIABLE2",
-  "EXAMPLE_VARIABLE3",
-]
-EXPORT_VARS = [
-  "CELERYD_STATS_PREFIX",
-  "CELERYD_TASK_SOFT_TIME_LIMIT",
-  "CELERYD_TASK_TIME_LIMIT",
-  "EXAMPLE_VARIABLE1",
-  "EXAMPLE_VARIABLE2",
-  "EXAMPLE_VARIABLE3",
-  "FAIL_RETRYCOUNT",
-  "FAIL_WAITTIME",
-]
 
 EXTEND_VARS = ["CELERY_QUEUES",]
